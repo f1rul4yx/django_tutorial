@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9f0h)gozf$g%6igo8&767w1xro0adm+)msxe)!eic$!fhvynb8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -76,12 +76,8 @@ WSGI_APPLICATION = 'django_tutorial.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'python',
-        'USER': 'admin',
-        'PASSWORD': 'Clave12345.Clave12345.',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -125,6 +121,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "static"
 
-DEFAULT_AUTO_FIELD='django.db.models.AutoField'
-
-CSRF_TRUSTED_ORIGINS = ['https://python.diegovargas.es']
+DEFAULT_AUTO_FIELD='django.db.models.AutoField' 
