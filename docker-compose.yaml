@@ -1,0 +1,34 @@
+services:
+  web:
+    image: ${DOCKER_USER}/django_tutorial:${VERSION}
+    container_name: django_tutorial_web
+    restart: always
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+      CSRF_TRUSTED_ORIGIN: ${CSRF_TRUSTED_ORIGIN}
+    ports:
+      - "${WEB_PORT}:8000"
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:latest
+    container_name: django_tutorial_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
