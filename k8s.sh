@@ -37,7 +37,7 @@ function deploy() {
     kubectl apply -f k8s/06-mariadb-service.yaml
 
     echo "⏳ Esperando a que MariaDB esté listo..."
-    kubectl wait --for=condition=ready pod -l app=mariadb -n django-app --timeout=120s
+    kubectl wait --for=condition=ready pod -l app=mariadb -n django-tutorial --timeout=120s
 
     echo "🐍 Desplegando Django..."
     kubectl apply -f k8s/07-django-deployment.yaml
@@ -52,13 +52,13 @@ function deploy() {
     echo "✅ Despliegue completado!"
     echo ""
     echo "📊 Estado de los pods:"
-    kubectl get pods -n django-app
+    kubectl get pods -n django-tutorial
     echo ""
     echo "🌐 Servicios:"
-    kubectl get services -n django-app
+    kubectl get services -n django-tutorial
     echo ""
     echo "🔀 Ingress:"
-    kubectl get ingress -n django-app
+    kubectl get ingress -n django-tutorial
 }
 
 function delete() {
@@ -96,7 +96,7 @@ function delete() {
     echo "✅ Eliminación completada!"
     echo ""
     echo "Verificando que no queden recursos:"
-    kubectl get all -n django-app 2>/dev/null || echo "✓ Namespace eliminado correctamente"
+    kubectl get all -n django-tutorial 2>/dev/null || echo "✓ Namespace eliminado correctamente"
 }
 
 # Verificar argumentos
