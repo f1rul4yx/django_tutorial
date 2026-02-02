@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-tutorial
+  namespace: django-tutorial
+  labels:
+    app: django-tutorial
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: django-tutorial
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: django-tutorial
+        tier: frontend
+    spec:
+      containers:
+      - name: django-container
+        image: f1rul4yx/django_tutorial:latest
+        ports:
+        - name: http-server
+          containerPort: 8000
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DB_USER
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DB_PORT
+        - name: DJANGO_SUPERUSER_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DJANGO_SUPERUSER_USERNAME
+        - name: DJANGO_SUPERUSER_EMAIL
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: DJANGO_SUPERUSER_EMAIL
+        - name: CSRF_TRUSTED_ORIGIN
+          valueFrom:
+            configMapKeyRef:
+              name: django-config
+              key: CSRF_TRUSTED_ORIGIN
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: db-password
+        - name: DJANGO_SUPERUSER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-secrets
+              key: django-superuser-password
