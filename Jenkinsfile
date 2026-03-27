@@ -12,7 +12,7 @@ pipeline {
         stage("Test en contenedor") {
             agent {
                 docker {
-                    image 'python:3'
+                    image 'python:3.12'
                     args '-u root:root'
                 }
             }
