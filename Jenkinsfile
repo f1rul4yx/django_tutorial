@@ -24,12 +24,12 @@ pipeline {
                 }
                 stage('Install') {
                     steps {
-                        sh 'pip install -r requirements.txt'
+                        sh 'pip install -r build/app/requirements.txt'
                     }
                 }
                 stage('Test') {
                     steps {
-                        sh 'python3 manage.py test'
+                        sh 'cd build/app && python3 manage.py test'
                     }
                 }
             }
