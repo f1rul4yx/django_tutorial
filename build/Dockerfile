@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:3.12-slimm
+FROM python:3.12-slim
 
 # Instalar dependencias del sistema necesarias para mysqlclient
 RUN apt-get update && apt-get install -y \
