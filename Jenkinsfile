@@ -16,6 +16,13 @@ pipeline {
                     args '-u root:root'
                 }
             }
+            environment {
+                DB_NAME = 'test_db'
+                DB_USER = 'test'
+                DB_PASSWORD = 'test'
+                DB_HOST = 'localhost'
+                DB_PORT = '3306'
+            }
             stages {
                 stage('Clone') {
                     steps {
@@ -29,7 +36,7 @@ pipeline {
                 }
                 stage('Test') {
                     steps {
-                        sh 'cd build/app && python3 manage.py test'
+                        sh 'cd build/app && python3 manage.py test --settings=django_tutorial.settings_test'
                     }
                 }
             }
